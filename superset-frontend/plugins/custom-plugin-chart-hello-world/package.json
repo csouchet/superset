@@ -25,6 +25,9 @@
   "publishConfig": {
     "access": "restricted"
   },
+  "dependencies": {
+    "bpmn-visualization": "^0.42.0"
+  },
   "peerDependencies": {
     "@superset-ui/chart-controls": "*",
     "@superset-ui/core": "*",
