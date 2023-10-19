@@ -21,10 +21,28 @@ import React from 'react';
 
 import { SupersetPluginChartHelloWorld } from 'superset-plugin-chart-hello-world';
 
-import { select } from '@storybook/addon-knobs';
 import { SuperChart } from '@superset-ui/core';
 
-import data from './data';
+import testData from './data';
+
+const TIME_COLUMN = '__timestamp';
+
+const formData = {
+  colorPicker: {
+    r: 0,
+    g: 122,
+    b: 135,
+    a: 1,
+  },
+  compareLag: 1,
+  compareSuffix: 'over 10Y',
+  metric: 'sum__num',
+  showTrendLine: true,
+  startYAxisAtZero: true,
+  timeGrainSqla: 'P1Y',
+  vizType: 'big_number',
+  yAxisFormat: '.3s',
+};
 
 export default {
   title: 'Custom Plugins/hello-world',
@@ -39,32 +57,18 @@ new SupersetPluginChartHelloWorld()
 export const HelloWorldStories = () => (
   <SuperChart
     chartType="ext-hello-world"
-    datasource={{
-      columnFormats: {},
-    }}
     width="100%"
     height="100%"
-    queriesData={[data]}
-    formData={{
-      encoding: {
-        color: {
-          field: 'name',
-        },
-        fontSize: {
-          field: 'sum__num',
-          scale: {
-            range: [0, 70],
-            zero: true,
-          },
-          type: 'quantitative',
-        },
-        text: {
-          field: 'name',
-        },
+    queriesData={[
+      {
+        data: testData.slice(0, 9),
+        from_dttm: testData[testData.length - 1][TIME_COLUMN],
+        to_dttm: testData[0][TIME_COLUMN],
       },
-      metric: 'sum__num',
-      rotation: select('Rotation', ['square', 'flat', 'random'], 'flat'),
-      series: 'name',
+    ]}
+    formData={{
+      ...formData,
+      timeRangeFixed: false,
     }}
   />
 );

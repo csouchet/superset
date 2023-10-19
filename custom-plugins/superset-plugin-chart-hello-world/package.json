@@ -26,6 +26,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "dependencies": {
+    "bpmn-visualization": "^0.42.0"
+  },
   "peerDependencies": {
     "@airbnb/config-babel": "^2.0.1",
     "@superset-ui/chart-controls": "*",

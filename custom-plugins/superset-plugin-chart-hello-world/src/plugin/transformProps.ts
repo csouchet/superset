@@ -57,7 +57,13 @@ export default function transformProps(chartProps: ChartProps) {
   return {
     width,
     height,
-    data,
+
+    data: data.map(item => ({
+      ...item,
+      // convert epoch to native Date
+      // eslint-disable-next-line no-underscore-dangle
+      __timestamp: new Date(item.__timestamp as number),
+    })),
     // and now your control data, manipulated as needed, and passed through as props!
     boldText,
     headerFontSize,
