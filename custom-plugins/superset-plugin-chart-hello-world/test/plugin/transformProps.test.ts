@@ -36,7 +36,7 @@ describe('SupersetPluginChartHelloWorld transformProps', () => {
     height: 600,
     theme: supersetTheme,
     queriesData: [{
-      data: [{ name: 'Hulk', sum__num: 1 }],
+      data: [{ name: 'Hulk', sum__num: 1, __timestamp: 599616000000 }],
     }],
   });
 
@@ -47,7 +47,7 @@ describe('SupersetPluginChartHelloWorld transformProps', () => {
       boldText: true,
       headerFontSize: 'xs',
       headerText: 'my text',
-      data: [{ name: 'Hulk', sum__num: 1 }],
+      data: [{ name: 'Hulk', sum__num: 1, __timestamp: new Date(599616000000) }],
     });
   });
 });

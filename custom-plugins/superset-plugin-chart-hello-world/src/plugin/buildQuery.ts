@@ -38,6 +38,7 @@ export default function buildQuery(formData: QueryFormData) {
     {
       ...baseQueryObject,
       groupby,
+      is_timeseries: true,
     },
   ]);
 }
