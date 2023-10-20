@@ -16,10 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import {BpmnVisualization} from "bpmn-visualization";
 import React, { useEffect, createRef } from 'react';
+
+import { BpmnVisualization } from 'bpmn-visualization';
+
 import { styled } from '@superset-ui/core';
-import { SupersetPluginChartHelloWorldProps, SupersetPluginChartHelloWorldStylesProps } from './types';
+import {
+  SupersetPluginChartHelloWorldProps,
+  SupersetPluginChartHelloWorldStylesProps,
+} from './types';
 
 // The following Styles component is a <div> element, which has been styled using Emotion
 // For docs, visit https://emotion.sh/docs/styled
@@ -451,11 +456,9 @@ function pizzaDiagram() {
 </semantic:definitions>`;
 }
 
-
-
-
-
-export default function SupersetPluginChartHelloWorld(props: SupersetPluginChartHelloWorldProps) {
+export default function SupersetPluginChartHelloWorld(
+  props: SupersetPluginChartHelloWorldProps,
+) {
   // height and width are the height and width of the DOM element as it exists in the dashboard.
   // There is also a `data` prop, which is, of course, your DATA 🎉
   // @ts-ignore
@@ -469,8 +472,10 @@ export default function SupersetPluginChartHelloWorld(props: SupersetPluginChart
     const root = rootElem.current as HTMLElement;
     console.log('Plugin element', root);
 
-    const bpmnVisualization = new BpmnVisualization({ container: "bpmn-container" });
-    bpmnVisualization.load( pizzaDiagram());
+    const bpmnVisualization = new BpmnVisualization({
+      container: 'bpmn-container',
+    });
+    bpmnVisualization.load(pizzaDiagram());
   });
 
   console.log('Plugin props', props);
@@ -484,18 +489,21 @@ export default function SupersetPluginChartHelloWorld(props: SupersetPluginChart
       width={width}
     >
       <h3>{props.headerText}</h3>
-     {/* <pre>${JSON.stringify(data, null, 2)}</pre>*/}
+      {/* <pre>${JSON.stringify(data, null, 2)}</pre> */}
 
-      <div id="bpmn-container" style={{
-        height: '600px',
-        width: '100%',
-        borderStyle: 'solid',
-        borderColor: '#B0B0B0',
-        borderWidth: '1px',
-        /* This ensures that the parts of the diagram outside of the container are not displayed. */
-        overflow: 'hidden',
-        backgroundColor: 'white',
-      }}></div>
+      <div
+        id="bpmn-container"
+        style={{
+          height,
+          width,
+          borderStyle: 'solid',
+          borderColor: '#B0B0B0',
+          borderWidth: '1px',
+          /* This ensures that the parts of the diagram outside of the container are not displayed. */
+          overflow: 'hidden',
+          backgroundColor: 'white',
+        }}
+      />
     </Styles>
   );
 }
