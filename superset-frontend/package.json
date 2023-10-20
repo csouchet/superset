@@ -33,7 +33,7 @@
   },
   "workspaces": [
     "packages/*",
-    "plugins/*"
+    "plugins/**"
   ],
   "scripts": {
     "_lint": "eslint --ignore-path=.eslintignore --ext .js,.jsx,.ts,tsx .",
@@ -54,14 +54,14 @@
     "lint-fix": "npm run _lint -- --fix && npm run type",
     "plugins:build": "node ./scripts/build.js",
     "plugins:build-assets": "node ./scripts/copyAssets.js",
-    "plugins:build-storybook": "cd packages/superset-ui-demo && npm run build-storybook",
-    "plugins:chromatic": "cd packages/superset-ui-demo && npm run chromatic",
+    "plugins:build-storybook": "npm run build-storybook -w packages/superset-ui-demo",
+    "plugins:chromatic": "npm run chromatic -w packages/superset-ui-demo",
     "plugins:create-conventional-version": "npm run prune && lerna version --conventional-commits --create-release github --no-private --yes",
     "plugins:create-minor-version": "npm run prune && lerna version minor --no-private --yes",
     "plugins:create-patch-version": "npm run prune && lerna version patch --no-private --yes",
     "plugins:release-conventional": "npm run prune && lerna publish --conventional-commits --create-release github --yes",
     "plugins:release-from-tag": "npm run prune && lerna publish from-package --yes",
-    "plugins:storybook": "cd packages/superset-ui-demo && npm run storybook",
+    "plugins:storybook": "concurrently -n plugin,story \"npm run dev -w plugins/custom-plugins/superset-plugin-chart-hello-world\" \"npm run storybook -w packages/superset-ui-demo\"",
     "prettier": "npm run _prettier -- --write",
     "prettier-check": "npm run _prettier -- --check",
     "prod": "npm run build",
@@ -132,6 +132,7 @@
     "broadcast-channel": "^4.10.0",
     "chrono-node": "^2.2.6",
     "classnames": "^2.2.5",
+    "concurrently": "^8.2.2",
     "core-js": "^3.6.5",
     "d3-array": "^1.2.4",
     "d3-color": "^3.1.0",
@@ -207,7 +208,7 @@
     "rison": "^0.1.1",
     "scroll-into-view-if-needed": "^2.2.28",
     "shortid": "^2.2.6",
-    "superset-plugin-chart-hello-world": "file:../custom-plugins/superset-plugin-chart-hello-world",
+    "superset-plugin-chart-hello-world": "file:./plugins/custom-plugins/superset-plugin-chart-hello-world",
     "tinycolor2": "^1.4.2",
     "urijs": "^1.19.8",
     "use-event-callback": "^0.1.0",
