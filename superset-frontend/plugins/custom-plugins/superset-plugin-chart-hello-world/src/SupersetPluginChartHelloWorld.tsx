@@ -34,9 +34,10 @@ import {
 // https://github.com/apache-superset/superset-ui/blob/master/packages/superset-ui-core/src/style/index.ts
 
 const Styles = styled.div<SupersetPluginChartHelloWorldStylesProps>`
-  background-color: ${({ theme }) => theme.colors.secondary.light2};
+  /*background-color: ${({ theme }) => theme.colors.secondary.light2};
   padding: ${({ theme }) => theme.gridUnit * 4}px;
-  border-radius: ${({ theme }) => theme.gridUnit * 2}px;
+  border-radius: ${({ theme }) => theme.gridUnit * 2}px;*/
+
   height: ${({ height }) => height}px;
   width: ${({ width }) => width}px;
 
@@ -474,6 +475,7 @@ export default function SupersetPluginChartHelloWorld(
 
     const bpmnVisualization = new BpmnVisualization({
       container: 'bpmn-container',
+      navigation: { enabled: true },
     });
     bpmnVisualization.load(pizzaDiagram());
   });
@@ -494,11 +496,12 @@ export default function SupersetPluginChartHelloWorld(
       <div
         id="bpmn-container"
         style={{
+          /* height: `calc(${height} - 0.5rem)`,
+          width: `calc(${width} - 0.5rem)`,
+          padding: 'auto', */
+
           height,
           width,
-          borderStyle: 'solid',
-          borderColor: '#B0B0B0',
-          borderWidth: '1px',
           /* This ensures that the parts of the diagram outside of the container are not displayed. */
           overflow: 'hidden',
           backgroundColor: 'white',
