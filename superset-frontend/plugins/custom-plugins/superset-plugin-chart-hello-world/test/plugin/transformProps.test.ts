@@ -35,9 +35,11 @@ describe('SupersetPluginChartHelloWorld transformProps', () => {
     width: 800,
     height: 600,
     theme: supersetTheme,
-    queriesData: [{
-      data: [{ name: 'Hulk', sum__num: 1, __timestamp: 599616000000 }],
-    }],
+    queriesData: [
+      {
+        data: [{ name: 'Hulk', sum__num: 1, __timestamp: 599616000000 }],
+      },
+    ],
   });
 
   it('should transform chart props for viz', () => {
@@ -47,7 +49,9 @@ describe('SupersetPluginChartHelloWorld transformProps', () => {
       boldText: true,
       headerFontSize: 'xs',
       headerText: 'my text',
-      data: [{ name: 'Hulk', sum__num: 1, __timestamp: new Date(599616000000) }],
+      data: [
+        { name: 'Hulk', sum__num: 1, __timestamp: new Date(599616000000) },
+      ],
     });
   });
 });

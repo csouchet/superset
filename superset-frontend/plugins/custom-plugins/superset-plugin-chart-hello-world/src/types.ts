@@ -37,8 +37,9 @@ export type SupersetPluginChartHelloWorldQueryFormData = QueryFormData &
   SupersetPluginChartHelloWorldStylesProps &
   SupersetPluginChartHelloWorldCustomizeProps;
 
-export type SupersetPluginChartHelloWorldProps = SupersetPluginChartHelloWorldStylesProps &
-  SupersetPluginChartHelloWorldCustomizeProps & {
-    data: TimeseriesDataRecord[];
-    // add typing here for the props you pass in from transformProps.ts!
-  };
+export type SupersetPluginChartHelloWorldProps =
+  SupersetPluginChartHelloWorldStylesProps &
+    SupersetPluginChartHelloWorldCustomizeProps & {
+      data: TimeseriesDataRecord[];
+      // add typing here for the props you pass in from transformProps.ts!
+    };
