@@ -16,11 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useEffect, createRef } from 'react';
-
-import { BpmnVisualization } from 'bpmn-visualization';
-
 import { styled } from '@superset-ui/core';
+
+import {
+  BpmnVisualization,
+  FlowKind,
+  ShapeBpmnElementKind,
+} from 'bpmn-visualization';
+import React, { createRef, useEffect } from 'react';
 import {
   SupersetPluginChartHelloWorldProps,
   SupersetPluginChartHelloWorldStylesProps,
@@ -478,6 +481,27 @@ export default function SupersetPluginChartHelloWorld(
       navigation: { enabled: true },
     });
     bpmnVisualization.load(pizzaDiagram());
+
+    const { bpmnElementsRegistry } = bpmnVisualization;
+    const catchEventIds = bpmnElementsRegistry
+      .getElementsByKinds(ShapeBpmnElementKind.EVENT_INTERMEDIATE_CATCH)
+      .map(element => element.bpmnSemantic.id);
+    bpmnElementsRegistry.updateStyle(catchEventIds, {
+      // eslint-disable-next-line theme-colors/no-literal-colors
+      stroke: { color: 'chartreuse' },
+      // eslint-disable-next-line theme-colors/no-literal-colors
+      fill: { color: '#102000' },
+    });
+
+    const messageFlowIds = bpmnElementsRegistry
+      .getElementsByKinds(FlowKind.MESSAGE_FLOW)
+      .map(element => element.bpmnSemantic.id);
+    bpmnElementsRegistry.updateStyle(messageFlowIds, {
+      // eslint-disable-next-line theme-colors/no-literal-colors
+      stroke: { color: '#8000FF' },
+      // eslint-disable-next-line theme-colors/no-literal-colors
+      fill: { color: '#EFDFFF' },
+    });
   });
 
   console.log('Plugin props', props);
@@ -504,6 +528,7 @@ export default function SupersetPluginChartHelloWorld(
           width,
           /* This ensures that the parts of the diagram outside of the container are not displayed. */
           overflow: 'hidden',
+          // eslint-disable-next-line theme-colors/no-literal-colors
           backgroundColor: 'white',
         }}
       />
