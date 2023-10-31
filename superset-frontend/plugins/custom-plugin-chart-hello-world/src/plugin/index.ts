@@ -36,7 +36,7 @@ export default class SupersetPluginChartHelloWorld extends ChartPlugin {
   constructor() {
     const metadata = new ChartMetadata({
       description: 'Superset Plugin Chart Hello World',
-      name: t('Hello World'),
+      name: t('Process Analytics'),
       thumbnail,
     });
 
