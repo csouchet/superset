@@ -39,6 +39,7 @@ export const ThemeColors = () => {
               <td>
                 <code>{hex}</code>
               </td>
+              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
               <td style={{ width: '150px', backgroundColor: hex }} />
             </tr>
           );
