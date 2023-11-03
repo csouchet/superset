@@ -19,7 +19,7 @@
 
 import React from 'react';
 
-import { SupersetPluginChartHelloWorld } from 'superset-plugin-chart-hello-world';
+import { SupersetPluginChartHelloWorld } from '@superset-ui/superset-plugin-chart-hello-world';
 
 import { SuperChart } from '@superset-ui/core';
 
