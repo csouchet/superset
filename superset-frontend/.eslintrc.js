@@ -116,6 +116,7 @@ module.exports = {
         'jsx-a11y/anchor-is-valid': 1,
         'jsx-a11y/click-events-have-key-events': 0, // re-enable up for discussion
         'jsx-a11y/mouse-events-have-key-events': 0, // re-enable up for discussion
+        'jsx-a11y/control-has-associated-label': 'off',
         'max-classes-per-file': 0,
         'new-cap': 0,
         'no-bitwise': 0,
@@ -244,6 +245,7 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 1,
     'jsx-a11y/click-events-have-key-events': 0, // re-enable up for discussion
     'jsx-a11y/mouse-events-have-key-events': 0, // re-enable up for discussion
+    'jsx-a11y/control-has-associated-label': 'off',
     'new-cap': 0,
     'no-bitwise': 0,
     'no-continue': 0,
