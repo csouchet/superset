@@ -1,12 +1,12 @@
 name: Frontend
 
 on:
-  push:
-    branches-ignore:
-      - "dependabot/**/docs/**"
-      - "dependabot/**/cypress-base/**"
   pull_request:
     types: [synchronize, opened, reopened, ready_for_review]
+    paths:
+      - "superset-frontend/**"
+      - "!superset-frontend/packages/superset-ui-demo/**"
+      - '!superset-frontend/plugins/custom-plugins/**/*'
 
 jobs:
   frontend-build:

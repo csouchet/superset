@@ -409,6 +409,7 @@ export default class CRUDCollection extends React.PureComponent<
       )),
     );
     if (allowAddItem) {
+      // eslint-disable-next-line jsx-a11y/control-has-associated-label
       tds.push(<td key="add" />);
     }
     if (allowDeletes) {

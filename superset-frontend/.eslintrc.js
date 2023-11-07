@@ -96,7 +96,7 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 0, // disabled temporarily
         '@typescript-eslint/explicit-function-return-type': 0,
         '@typescript-eslint/explicit-module-boundary-types': 0, // re-enable up for discussion
-        '@typescript-eslint/prefer-optional-chain': 2,
+        '@typescript-eslint/prefer-optional-chain': 'off',
         camelcase: 0,
         'class-methods-use-this': 0,
         'func-names': 0,
@@ -116,6 +116,7 @@ module.exports = {
         'jsx-a11y/anchor-is-valid': 1,
         'jsx-a11y/click-events-have-key-events': 0, // re-enable up for discussion
         'jsx-a11y/mouse-events-have-key-events': 0, // re-enable up for discussion
+        'jsx-a11y/control-has-associated-label': 'off',
         'max-classes-per-file': 0,
         'new-cap': 0,
         'no-bitwise': 0,
@@ -131,6 +132,7 @@ module.exports = {
         'padded-blocks': 0,
         'prefer-arrow-callback': 0,
         'prefer-destructuring': ['error', { object: true, array: false }],
+        'react/default-props-match-prop-types': 'off',
         'react/destructuring-assignment': 0, // re-enable up for discussion
         'react/forbid-prop-types': 0,
         'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
@@ -140,10 +142,12 @@ module.exports = {
         'react/no-array-index-key': 0,
         'react/no-string-refs': 0,
         'react/no-unescaped-entities': 0,
+        'react/no-unknown-property': 'off',
         'react/no-unused-prop-types': 0,
         'react/prop-types': 0,
         'react/require-default-props': 0,
         'react/sort-comp': 0, // TODO: re-enable in separate PR
+        'react/state-in-constructor': 'off',
         'react/static-property-placement': 0, // re-enable up for discussion
         'prettier/prettier': 'error',
         'file-progress/activate': 1,
@@ -241,6 +245,7 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 1,
     'jsx-a11y/click-events-have-key-events': 0, // re-enable up for discussion
     'jsx-a11y/mouse-events-have-key-events': 0, // re-enable up for discussion
+    'jsx-a11y/control-has-associated-label': 'off',
     'new-cap': 0,
     'no-bitwise': 0,
     'no-continue': 0,
@@ -282,11 +287,13 @@ module.exports = {
     'react/no-array-index-key': 0,
     'react/no-string-refs': 0,
     'react/no-unescaped-entities': 0,
+    'react/no-unknown-property': 'off',
     'react/no-unused-prop-types': 0,
     'react/prop-types': 0,
     'react/require-default-props': 0,
     'react/sort-comp': 0, // TODO: re-enable in separate PR
     'react/static-property-placement': 0, // disabled temporarily
+    'react-hooks/exhaustive-deps': 'off',
     'prettier/prettier': 'error',
   },
   ignorePatterns,

@@ -77,12 +77,15 @@ repos:
     hooks:
       - id: black
         language_version: python3
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.4.1 # Use the sha or tag you want to point at
-    hooks:
-      - id: prettier
-        args: ["--ignore-path=./superset-frontend/.prettierignore"]
-        files: "superset-frontend"
+  -   repo: https://github.com/pre-commit/mirrors-eslint
+      rev: v8.52.0
+      hooks:
+        -   id: eslint
+            additional_dependencies:
+              - eslint@7.32.0
+              - eslint-config-airbnb@18.2.1
+              - eslint-config-prettier@7.1.0
+            files: superset-frontend\.[jt]sx?$  # *.js, *.jsx, *.ts and *.tsx
   # blacklist unsafe functions like make_url (see #19526)
   - repo: https://github.com/skorokithakis/blacklist-pre-commit-hook
     rev: e2f070289d8eddcaec0b580d3bde29437e7c8221

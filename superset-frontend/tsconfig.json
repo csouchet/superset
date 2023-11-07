@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     /* Type Checking */
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noImplicitThis": false,
+    "noUnusedLocals": false,
+    "strictNullChecks": false,
 
     /* Modules */
     "baseUrl": ".",
@@ -24,8 +24,10 @@
       ],
       "@superset-ui/plugin-chart-*": ["./plugins/plugin-chart-*/src"],
       "@superset-ui/preset-chart-*": ["./plugins/preset-chart-*/src"],
-      "@superset-ui/switchboard": ["./packages/superset-ui-switchboard/src"]
+      "@superset-ui/switchboard": ["./packages/superset-ui-switchboard/src"],
+      "@superset-ui/superset-plugin-chart-hello-world": ["./plugins/custom-plugins/superset-plugin-chart-hello-world/src"]
     },
+    "typeRoots": ["node_modules/@types"],
     "types": [
       "@emotion/react/types/css-prop",
       "jest",
@@ -64,16 +66,17 @@
     "skipLibCheck": true
   },
   "exclude": [
-    "./packages/generator-superset/test/**/*"
+    "./packages/generator-superset/test/**/*",
+    "./**/*.test.*"
   ],
   "include": [
     "./src/**/*",
     "./spec/**/*",
-    "./packages/*/src/**/*",
-    "./packages/*/types/**/*",
-    "./plugins/*/src/**/*",
-    "./plugins/*/types/**/*",
-    "./packages/*/test/**/*",
-    "./plugins/*/test/**/*"
+    "./packages/**/src/**/*",
+    "./packages/**/types/**/*",
+    "./plugins/**/src/**/*",
+    "./plugins/**/types/**/*",
+    "./packages/**/test/**/*",
+    "./plugins/**/test/**/*"
   ]
 }

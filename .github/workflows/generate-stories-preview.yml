@@ -1,0 +1,69 @@
+name: Generate Stories Preview
+
+on:
+  pull_request:
+    # To manage 'surge-preview' action teardown, add default event types + closed event type
+    types: [opened, synchronize, reopened, closed]
+#    branches:
+#      - master
+    paths:
+      - '.github/workflows/generate-stories-preview.yml'
+      - 'superset-frontend/packages/superset-ui-demo/**/*'
+      - 'superset-frontend/plugins/custom-plugins/**/*'
+      - 'superset-frontend/package.json'
+      - 'superset-frontend/package-lock.json'
+      - '.nvmrc'
+
+permissions:
+  # surge-preview: PR comments
+  pull-requests: write
+
+jobs:
+  story_prev:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: bonitasoft/actions/packages/surge-preview-tools@v2.2.0
+        id: surge-preview-tools
+        with:
+          surge-token: ${{ secrets.SURGE_TOKEN }}
+      - uses: actions/checkout@v3
+        if: github.event.action != 'closed'
+        with:
+          sparse-checkout: |
+            superset-frontend
+            .github
+          sparse-checkout-cone-mode: false
+      - name: Move superset-frontend folder to root
+        run: |
+          ls -lah
+          shopt -s dotglob
+          mv ./superset-frontend/* .
+          ls -lah
+      - name: Build Setup
+        if: github.event.action != 'closed'
+        uses: ./.github/actions/build-setup
+      - name: Build Custom plugin
+        if: github.event.action != 'closed'
+        run: |
+          npm i
+          npm run build-esm
+        working-directory: ./plugins/custom-plugins/superset-plugin-chart-hello-world
+        shell: bash
+      - name: Publish Stories preview
+        id: preview_step
+        if: steps.surge-preview-tools.outputs.can-run-surge-command == 'true'
+        uses: afc163/surge-preview@v1
+        with:
+          surge_token: ${{ secrets.SURGE_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dist: packages/superset-ui-demo/storybook-static
+          failOnError: true
+          teardown: 'true'
+          build: |
+            npm i
+            npm run plugins:build-storybook
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          recreate: true
+          message: |
+            [Live preview](https://${{ steps.preview_step.outputs.preview_url }}/?path=/story/custom-plugins-hello-world--hello-world-stories)
