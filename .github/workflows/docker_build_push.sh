@@ -18,7 +18,7 @@
 set -eo pipefail
 
 SHA=$(git rev-parse HEAD)
-REPO_NAME="apache/superset"
+REPO_NAME="csouchet/superset"
 
 if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
   REFSPEC=$(echo "${GITHUB_HEAD_REF}" | sed 's/[^a-zA-Z0-9]/-/g' | head -c 40)
@@ -46,7 +46,8 @@ EOF
 #
 # Build the "lean" image
 #
-DOCKER_BUILDKIT=1 docker build --target lean \
+DOCKER_BUILDKIT=1 docker build \
+  --target lean \
   -t "${REPO_NAME}:${SHA}" \
   -t "${REPO_NAME}:${REFSPEC}" \
   -t "${REPO_NAME}:${LATEST_TAG}" \
@@ -59,7 +60,8 @@ DOCKER_BUILDKIT=1 docker build --target lean \
 #
 # Build the "lean310" image
 #
-DOCKER_BUILDKIT=1 docker build --target lean \
+DOCKER_BUILDKIT=1 docker build \
+  --target lean \
   -t "${REPO_NAME}:${SHA}-py310" \
   -t "${REPO_NAME}:${REFSPEC}-py310" \
   -t "${REPO_NAME}:${LATEST_TAG}-py310" \
@@ -86,7 +88,8 @@ DOCKER_BUILDKIT=1 docker build \
 #
 # Build the dev image
 #
-DOCKER_BUILDKIT=1 docker build --target dev \
+DOCKER_BUILDKIT=1 docker build \
+  --target dev \
   -t "${REPO_NAME}:${SHA}-dev" \
   -t "${REPO_NAME}:${REFSPEC}-dev" \
   -t "${REPO_NAME}:${LATEST_TAG}-dev" \
@@ -106,6 +109,20 @@ DOCKER_BUILDKIT=1 docker build \
   --label "build_actor=${GITHUB_ACTOR}" \
   -f dockerize.Dockerfile \
   .
+
+# ls ./build
+
+# cd ./build
+# docker save "${REPO_NAME}:dockerize" | gzip > "csouchet-superset:dockerize-1.tar.gz"
+
+echo "Create a backup that can then be used with docker load"
+
+docker save "${REPO_NAME}:${LATEST_TAG}" > "csouchet-superset:${LATEST_TAG}.tar"
+docker save "${REPO_NAME}:${LATEST_TAG}-py310" > "csouchet-superset:${LATEST_TAG}-py310.tar"
+docker save "${REPO_NAME}:${LATEST_TAG}-websocket" > "csouchet-superset:${LATEST_TAG}-websocket.tar"
+docker save "${REPO_NAME}:${LATEST_TAG}-dev" > "csouchet-superset:${LATEST_TAG}-dev.tar"
+docker save "${REPO_NAME}:dockerize" > "csouchet-superset:dockerize.tar"
+
 
 if [ -z "${DOCKERHUB_TOKEN}" ]; then
   # Skip if secrets aren't populated -- they're only visible for actions running in the repo (not on forks)
