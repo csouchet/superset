@@ -66,6 +66,7 @@
   "peerDependencies": {
     "@encodable/color": "=1.1.1",
     "@superset-ui/core": "*",
+    "@superset-ui/custom-plugin-chart-hello-world": "file:../../plugins/custom-plugin-chart-hello-world",
     "@superset-ui/legacy-plugin-chart-calendar": "*",
     "@superset-ui/legacy-plugin-chart-chord": "*",
     "@superset-ui/legacy-plugin-chart-country-map": "*",

@@ -24,7 +24,8 @@
       ],
       "@superset-ui/plugin-chart-*": ["./plugins/plugin-chart-*/src"],
       "@superset-ui/preset-chart-*": ["./plugins/preset-chart-*/src"],
-      "@superset-ui/switchboard": ["./packages/superset-ui-switchboard/src"]
+      "@superset-ui/switchboard": ["./packages/superset-ui-switchboard/src"],
+      "@superset-ui/custom-plugin-chart-hello-world": ["./plugins/custom-plugin-chart-hello-world/src"]
     },
     "types": [
       "@emotion/react/types/css-prop",
@@ -71,9 +72,9 @@
     "./spec/**/*",
     "./packages/*/src/**/*",
     "./packages/*/types/**/*",
-    "./plugins/*/src/**/*",
-    "./plugins/*/types/**/*",
+    "./plugins/**/src/**/*",
+    "./plugins/**/types/**/*",
     "./packages/*/test/**/*",
-    "./plugins/*/test/**/*"
+    "./plugins/**/test/**/*"
   ]
 }

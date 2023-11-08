@@ -1,0 +1,33 @@
+{
+  "name": "@superset-ui/custom-plugin-chart-hello-world",
+  "version": "0.1.0",
+  "description": "Superset Plugin Chart Hello World",
+  "license": "Apache-2.0",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "files": [
+    "esm",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/csouchet/superset.git",
+    "directory": "superset-frontend/plugins/legacy-plugin-chart-parallel-coordinates"
+  },
+  "keywords": [
+    "superset"
+  ],
+  "private": true,
+  "author": "My Name",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "peerDependencies": {
+    "@superset-ui/chart-controls": "*",
+    "@superset-ui/core": "*",
+    "react": "^16.13.1"
+  }
+}

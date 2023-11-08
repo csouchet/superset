@@ -33,7 +33,7 @@
   },
   "workspaces": [
     "packages/*",
-    "plugins/*"
+    "plugins/**"
   ],
   "scripts": {
     "_lint": "eslint --ignore-path=.eslintignore --ext .js,.jsx,.ts,tsx .",
@@ -54,14 +54,14 @@
     "lint-fix": "npm run _lint -- --fix && npm run type",
     "plugins:build": "node ./scripts/build.js",
     "plugins:build-assets": "node ./scripts/copyAssets.js",
-    "plugins:build-storybook": "cd packages/superset-ui-demo && npm run build-storybook",
-    "plugins:chromatic": "cd packages/superset-ui-demo && npm run chromatic",
+    "plugins:build-storybook": "npm run build-storybook -w packages/superset-ui-demo",
+    "plugins:chromatic": "npm run chromatic -w packages/superset-ui-demo",
     "plugins:create-conventional-version": "npm run prune && lerna version --conventional-commits --create-release github --no-private --yes",
     "plugins:create-minor-version": "npm run prune && lerna version minor --no-private --yes",
     "plugins:create-patch-version": "npm run prune && lerna version patch --no-private --yes",
     "plugins:release-conventional": "npm run prune && lerna publish --conventional-commits --create-release github --yes",
     "plugins:release-from-tag": "npm run prune && lerna publish from-package --yes",
-    "plugins:storybook": "cd packages/superset-ui-demo && npm run storybook",
+    "plugins:storybook": "npm run storybook -w packages/superset-ui-demo",
     "prettier": "npm run _prettier -- --write",
     "prettier-check": "npm run _prettier -- --check",
     "prod": "npm run build",
@@ -112,6 +112,7 @@
     "@superset-ui/plugin-chart-pivot-table": "file:./plugins/plugin-chart-pivot-table",
     "@superset-ui/plugin-chart-table": "file:./plugins/plugin-chart-table",
     "@superset-ui/plugin-chart-word-cloud": "file:./plugins/plugin-chart-word-cloud",
+    "@superset-ui/custom-plugin-chart-hello-world": "file:./plugins/custom-plugin-chart-hello-world",
     "@superset-ui/switchboard": "file:./packages/superset-ui-switchboard",
     "@types/d3-format": "^3.0.1",
     "@visx/axis": "^3.0.1",
@@ -282,6 +283,7 @@
     "babel-plugin-dynamic-import-node": "^2.3.3",
     "babel-plugin-jsx-remove-data-test-id": "^2.1.3",
     "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-transform-dev": "^2.0.1",
     "chromatic": "^6.7.4",
     "copy-webpack-plugin": "^9.0.1",
     "cross-env": "^5.2.0",
@@ -340,12 +342,12 @@
     "ts-loader": "^9.2.5",
     "typescript": "^4.5.4",
     "vm-browserify": "^1.1.2",
-    "webpack": "^5.76.0",
-    "webpack-bundle-analyzer": "^4.4.2",
-    "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.10.1",
-    "webpack-manifest-plugin": "^4.0.2",
-    "webpack-sources": "^3.2.0"
+    "webpack": "^5.89.0",
+    "webpack-bundle-analyzer": "^4.9.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-manifest-plugin": "^5.0.0",
+    "webpack-sources": "^3.2.3"
   },
   "engines": {
     "node": "^16.9.1",
