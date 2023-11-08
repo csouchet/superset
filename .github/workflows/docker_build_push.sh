@@ -110,18 +110,19 @@ DOCKER_BUILDKIT=1 docker build \
   -f dockerize.Dockerfile \
   .
 
-# ls ./build
-
-# cd ./build
 # docker save "${REPO_NAME}:dockerize" | gzip > "csouchet-superset:dockerize-1.tar.gz"
 
 echo "Create a backup that can then be used with docker load"
 
-docker save "${REPO_NAME}:${LATEST_TAG}" > "csouchet-superset:${LATEST_TAG}.tar"
-docker save "${REPO_NAME}:${LATEST_TAG}-py310" > "csouchet-superset:${LATEST_TAG}-py310.tar"
-docker save "${REPO_NAME}:${LATEST_TAG}-websocket" > "csouchet-superset:${LATEST_TAG}-websocket.tar"
-docker save "${REPO_NAME}:${LATEST_TAG}-dev" > "csouchet-superset:${LATEST_TAG}-dev.tar"
-docker save "${REPO_NAME}:dockerize" > "csouchet-superset:dockerize.tar"
+mkdir ./build
+
+docker save "${REPO_NAME}:${LATEST_TAG}" > "build/superset-${LATEST_TAG}.tar"
+docker save "${REPO_NAME}:${LATEST_TAG}-py310" > "build/superset-${LATEST_TAG}-py310.tar"
+docker save "${REPO_NAME}:${LATEST_TAG}-websocket" > "build/superset-${LATEST_TAG}-websocket.tar"
+docker save "${REPO_NAME}:${LATEST_TAG}-dev" > "build/superset-${LATEST_TAG}-dev.tar"
+docker save "${REPO_NAME}:dockerize" > "build/superset-dockerize.tar"
+
+ls ./build
 
 
 if [ -z "${DOCKERHUB_TOKEN}" ]; then
