@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { t, validateNonEmpty } from '@superset-ui/core';
+import { t } from '@superset-ui/core';
 import {
   ControlPanelConfig,
   sections,
@@ -100,42 +100,41 @@ const config: ControlPanelConfig = {
 
   // For control input types, see: superset-frontend/src/explore/components/controls/index.js
   controlPanelSections: [
-    sections.legacyTimeseriesTime,
+    //sections.legacyTimeseriesTime,
+    sections.legacyRegularTime,
     {
       label: t('Query'),
       expanded: true,
       controlSetRows: [
+        //['columns'],
+        //['groupby'],
         [
           {
-            name: 'cols',
+            name: 'bpmnDiagram',
             config: {
-              ...sharedControls.groupby,
-              label: t('Columns'),
-              description: t('Columns to group by'),
+              ...sharedControls.entity,
+              label: t('BPMN Diagram'),
+              description: t('BPMN Process Diagram'),
+              multi: false,
             },
           },
         ],
         [
           {
-            name: 'metrics',
+            name: 'processName',
             config: {
-              ...sharedControls.metrics,
-              // it's possible to add validators to controls if
-              // certain selections/types need to be enforced
-              validators: [validateNonEmpty],
+              ...sharedControls.entity,
+              label: t('Process Name'),
+              description: t('BPMN Process Name'),
+              //multi: false,
             },
           },
         ],
+        //['metrics'],
         ['adhoc_filters'],
-        [
-          {
-            name: 'row_limit',
-            config: sharedControls.row_limit,
-          },
-        ],
       ],
     },
-    {
+    /*{
       label: t('Hello Controls!'),
       expanded: true,
       controlSetRows: [
@@ -187,7 +186,7 @@ const config: ControlPanelConfig = {
           },
         ],
       ],
-    },
+    },*/
   ],
 };
 

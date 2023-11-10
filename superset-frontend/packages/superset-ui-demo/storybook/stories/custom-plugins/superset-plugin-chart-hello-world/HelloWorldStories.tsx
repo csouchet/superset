@@ -22,13 +22,14 @@ import React from 'react';
 import { SupersetPluginChartHelloWorld } from '@superset-ui/custom-plugin-chart-hello-world';
 
 import { SuperChart } from '@superset-ui/core';
+import { number, select } from '@storybook/addon-knobs';
 
 import testData from './data';
 
 const TIME_COLUMN = '__timestamp';
 
 const formData = {
-  colorPicker: {
+  /*colorPicker: {
     r: 0,
     g: 122,
     b: 135,
@@ -41,7 +42,7 @@ const formData = {
   startYAxisAtZero: true,
   timeGrainSqla: 'P1Y',
   vizType: 'big_number',
-  yAxisFormat: '.3s',
+  yAxisFormat: '.3s',*/
 };
 
 export default {
@@ -54,21 +55,39 @@ new SupersetPluginChartHelloWorld()
   })
   .register();
 
-export const HelloWorldStories = () => (
-  <SuperChart
-    chartType="ext-hello-world"
-    width="100%"
-    height="100%"
-    queriesData={[
-      {
-        data: testData.slice(0, 9),
-        from_dttm: testData[testData.length - 1][TIME_COLUMN],
-        to_dttm: testData[0][TIME_COLUMN],
-      },
-    ]}
-    formData={{
-      ...formData,
-      timeRangeFixed: false,
-    }}
-  />
-);
+export const HelloWorldStories = () => {
+  const dataIndex: number = number('Data Index', 0);
+  let processes: string[] = Array.from(
+    new Set(testData.map(item => item.process)),
+  );
+  // @ts-ignore
+  processes.push(undefined);
+  const process: string = select('Process Name', processes, 'Pizza Customer');
+  //const activityName: string = text('Activity Name', undefined);
+  return (
+    <SuperChart
+      chartType="ext-hello-world"
+      width="100%"
+      height="100%"
+      queriesData={[
+        {
+          data: [
+            {
+              diagram: testData[dataIndex].diagram,
+              process: process ?? testData[dataIndex].process,
+            },
+          ],
+          from_dttm: testData[testData.length - 1][TIME_COLUMN],
+          to_dttm: testData[0][TIME_COLUMN],
+        },
+      ]}
+      formData={{
+        ...formData,
+        /*diagramURL: diagramURL,
+      processName: processName,
+      activityName: activityName,*/
+        //theme: theme
+      }}
+    />
+  );
+};

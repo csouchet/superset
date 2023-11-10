@@ -33,12 +33,16 @@ import { buildQueryContext, QueryFormData } from '@superset-ui/core';
  * if a viz needs multiple different result sets.
  */
 export default function buildQuery(formData: QueryFormData) {
-  const { cols: groupby } = formData;
-  return buildQueryContext(formData, baseQueryObject => [
-    {
-      ...baseQueryObject,
-      groupby,
-      is_timeseries: true,
-    },
-  ]);
+  formData.groupby = [formData.bpmnDiagram, formData.processName];
+  formData.row_limit = 1;
+  console.log(formData);
+
+  return buildQueryContext(formData, baseQueryObject => {
+    console.log(baseQueryObject);
+    return [
+      {
+        ...baseQueryObject,
+      },
+    ];
+  });
 }
