@@ -1,0 +1,9 @@
+{
+  "extends": "../superset-frontend/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "../superset-frontend",
+    "paths": {
+      "@superset-ui/custom-plugin-chart-hello-world": ["../custom-frontend/plugins/custom-plugin-chart-hello-world/src"]
+    }
+  },
+}

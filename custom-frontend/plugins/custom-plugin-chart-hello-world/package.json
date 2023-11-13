@@ -15,7 +15,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/csouchet/superset.git",
-    "directory": "superset-frontend/plugins/legacy-plugin-chart-parallel-coordinates"
+    "directory": "custom-frontend/plugins/custom-plugin-chart-hello-world"
   },
   "keywords": [
     "superset"
@@ -24,6 +24,11 @@
   "author": "My Name",
   "publishConfig": {
     "access": "restricted"
+  },
+  "scripts": {
+    "dev": "BABEL_OUTPUT=esm babel src --extensions \".ts,.tsx,.js,.jsx\" --watch --copy-files --out-dir esm",
+    "ts-types": "tsc --build",
+    "test": "jest"
   },
   "dependencies": {
     "bpmn-visualization": "^0.42.0"

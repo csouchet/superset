@@ -21,8 +21,10 @@ import React, { createRef, useEffect, useState } from 'react';
 import {
   BpmnVisualization,
   FitType,
+  FlowKind,
   ModelFilter,
   PoolFilter,
+  ShapeBpmnElementKind,
 } from 'bpmn-visualization';
 
 import { styled } from '@superset-ui/core';
@@ -39,7 +41,7 @@ import {
 // imported from @superset-ui/core. For variables available, please visit
 // https://github.com/apache-superset/superset-ui/blob/master/packages/superset-ui-core/src/style/index.ts
 
-const Styles = styled.div<SupersetPluginChartHelloWorldStylesProps>`
+const Styles: any = styled.div<SupersetPluginChartHelloWorldStylesProps>`
   /*background-color: ${({ theme }) => theme.colors.secondary.light2};
   padding: ${({ theme }) => theme.gridUnit * 4}px;
   border-radius: ${({ theme }) => theme.gridUnit * 2}px;*/
@@ -99,6 +101,27 @@ export default function SupersetPluginChartHelloWorld(
             margin: 0,
           },
           modelFilter: modelFilter,
+        });
+
+        const { bpmnElementsRegistry } = bpmnVisualization;
+        const catchEventIds = bpmnElementsRegistry
+          .getElementsByKinds(ShapeBpmnElementKind.EVENT_INTERMEDIATE_CATCH)
+          .map(element => element.bpmnSemantic.id);
+        bpmnElementsRegistry.updateStyle(catchEventIds, {
+          // eslint-disable-next-line theme-colors/no-literal-colors
+          stroke: { color: 'chartreuse' },
+          // eslint-disable-next-line theme-colors/no-literal-colors
+          fill: { color: '#102000' },
+        });
+
+        const messageFlowIds = bpmnElementsRegistry
+          .getElementsByKinds(FlowKind.MESSAGE_FLOW)
+          .map(element => element.bpmnSemantic.id);
+        bpmnElementsRegistry.updateStyle(messageFlowIds, {
+          // eslint-disable-next-line theme-colors/no-literal-colors
+          stroke: { color: '#8000FF' },
+          // eslint-disable-next-line theme-colors/no-literal-colors
+          fill: { color: '#EFDFFF' },
         });
       }
     }

@@ -48,6 +48,7 @@ superset:
 
 	# Install node packages
 	cd superset-frontend; npm ci
+	cd custom-frontend; npm ci
 
 update: update-py update-js
 
@@ -67,6 +68,7 @@ update-py:
 update-js:
 	# Install js packages
 	cd superset-frontend; npm ci
+	cd custom-frontend; npm ci
 
 venv:
 	# Create a virtual environment and activate it (recommended)
@@ -91,21 +93,21 @@ py-lint: pre-commit
 	pylint -j 0 superset
 
 js-format:
-	cd superset-frontend; npm run prettier
+	cd custom-frontend; npm run prettier
 
 flask-app:
 	flask run -p 8088 --with-threads --reload --debugger
 
 node-app:
-	cd superset-frontend; npm run dev-server
+	cd custom-frontend; npm run dev-server
 
 build-cypress:
-	cd superset-frontend; npm run build-instrumented
-	cd superset-frontend/cypress-base; npm ci
+	cd custom-frontend; npm run build-instrumented
+	cd custom-frontend/cypress-base; npm ci
 
 open-cypress:
-	if ! [ $(port) ]; then cd superset-frontend/cypress-base; CYPRESS_BASE_URL=http://localhost:9000 npm run cypress open; fi
-	cd superset-frontend/cypress-base; CYPRESS_BASE_URL=http://localhost:$(port) npm run cypress open
+	if ! [ $(port) ]; then cd custom-frontend/cypress-base; CYPRESS_BASE_URL=http://localhost:9000 npm run cypress open; fi
+	cd custom-frontend/cypress-base; CYPRESS_BASE_URL=http://localhost:$(port) npm run cypress open
 
 report-celery-worker:
 	celery --app=superset.tasks.celery_app:app worker

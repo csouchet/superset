@@ -1,0 +1,25 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "lib",
+    "outDir": "lib",
+    "rootDir": "src",
+    "allowJs": false,
+    "esModuleInterop": true,
+    "jsx": "react"
+  },
+  "exclude": [
+    "lib",
+    "test"
+  ],
+  "include": [
+    "src/**/*",
+    "types/**/*",
+    "../../../superset-frontend/types/**/*"
+  ],
+  "references": [
+    { "path": "../../../superset-frontend/packages/superset-ui-chart-controls" },
+    { "path": "../../../superset-frontend/packages/superset-ui-core" }
+  ]
+}

@@ -65,7 +65,7 @@ repos:
     hooks:
       - id: check-docstring-first
       - id: check-added-large-files
-        exclude: \.(geojson)$
+        exclude: (\.geojson$|custom-frontend\/package-lock\.json)
       - id: check-yaml
         exclude: ^helm/superset/templates/
       - id: debug-statements
