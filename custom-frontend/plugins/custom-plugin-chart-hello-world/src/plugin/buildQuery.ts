@@ -33,11 +33,18 @@ import { buildQueryContext, QueryFormData } from '@superset-ui/core';
  * if a viz needs multiple different result sets.
  */
 export default function buildQuery(formData: QueryFormData) {
-  formData.groupby = [formData.bpmnDiagram, formData.processName];
-  formData.row_limit = 1;
-  console.log(formData);
+  const customFormData = formData;
+  customFormData.groupby = [
+    customFormData.bpmnDiagram,
+    customFormData.processName,
+  ];
+  customFormData.row_limit = 1;
 
-  return buildQueryContext(formData, baseQueryObject => {
+  // eslint-disable-next-line no-console
+  console.log(customFormData);
+
+  return buildQueryContext(customFormData, baseQueryObject => {
+    // eslint-disable-next-line no-console
     console.log(baseQueryObject);
     return [
       {

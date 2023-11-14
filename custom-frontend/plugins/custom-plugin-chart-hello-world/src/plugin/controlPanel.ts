@@ -100,14 +100,14 @@ const config: ControlPanelConfig = {
 
   // For control input types, see: superset-frontend/src/explore/components/controls/index.js
   controlPanelSections: [
-    //sections.legacyTimeseriesTime,
+    // sections.legacyTimeseriesTime,
     sections.legacyRegularTime,
     {
       label: t('Query'),
       expanded: true,
       controlSetRows: [
-        //['columns'],
-        //['groupby'],
+        // ['columns'],
+        // ['groupby'],
         [
           {
             name: 'bpmnDiagram',
@@ -126,15 +126,15 @@ const config: ControlPanelConfig = {
               ...sharedControls.entity,
               label: t('Process Name'),
               description: t('BPMN Process Name'),
-              //multi: false,
+              // multi: false,
             },
           },
         ],
-        //['metrics'],
+        // ['metrics'],
         ['adhoc_filters'],
       ],
     },
-    /*{
+    /* {
       label: t('Hello Controls!'),
       expanded: true,
       controlSetRows: [
@@ -186,7 +186,7 @@ const config: ControlPanelConfig = {
           },
         ],
       ],
-    },*/
+    }, */
   ],
 };
 

@@ -84,9 +84,9 @@ export default function SupersetPluginChartHelloWorld(
   // each props change
   useEffect(() => {
     if (bpmnVisualization) {
-      //const root = rootElem.current as HTMLElement;
-      //console.log('Plugin element', root);
-      //console.log('data', data);
+      // const root = rootElem.current as HTMLElement;
+      // console.log('Plugin element', root);
+      // console.log('data', data);
       const modelFilter: ModelFilter = {};
       const process = data[0][processName];
       const diagram = data[0][bpmnDiagram];
@@ -100,7 +100,7 @@ export default function SupersetPluginChartHelloWorld(
             type: FitType.Center,
             margin: 0,
           },
-          modelFilter: modelFilter,
+          modelFilter,
         });
 
         const { bpmnElementsRegistry } = bpmnVisualization;

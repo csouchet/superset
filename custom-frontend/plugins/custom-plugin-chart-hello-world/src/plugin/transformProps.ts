@@ -53,6 +53,7 @@ export default function transformProps(chartProps: ChartProps) {
     formData;
   const data = queriesData[0].data as TimeseriesDataRecord[];
 
+  // eslint-disable-next-line no-console
   console.log('formData via TransformProps.ts', formData);
 
   return {
