@@ -1,8 +1,18 @@
 {
   "name": "@superset-ui/custom-plugin-chart-hello-world",
   "version": "0.1.0",
+  "private": true,
   "description": "Superset Plugin Chart Hello World",
+  "keywords": [
+    "superset"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/csouchet/superset.git",
+    "directory": "custom-frontend/plugins/custom-plugin-chart-hello-world"
+  },
   "license": "Apache-2.0",
+  "author": "My Name",
   "sideEffects": [
     "*.css"
   ],
@@ -12,23 +22,10 @@
     "esm",
     "lib"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/csouchet/superset.git",
-    "directory": "custom-frontend/plugins/custom-plugin-chart-hello-world"
-  },
-  "keywords": [
-    "superset"
-  ],
-  "private": true,
-  "author": "My Name",
-  "publishConfig": {
-    "access": "restricted"
-  },
   "scripts": {
     "dev": "BABEL_OUTPUT=esm babel src --extensions \".ts,.tsx,.js,.jsx\" --watch --copy-files --out-dir esm",
-    "ts-types": "tsc --build",
-    "test": "jest"
+    "test": "jest",
+    "ts-types": "tsc --build"
   },
   "dependencies": {
     "bpmn-visualization": "^0.42.0"
@@ -37,5 +34,8 @@
     "@superset-ui/chart-controls": "*",
     "@superset-ui/core": "*",
     "react": "^16.13.1"
+  },
+  "publishConfig": {
+    "access": "restricted"
   }
 }

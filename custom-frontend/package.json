@@ -11,7 +11,6 @@
     "./plugins/*"
   ],
   "scripts": {
-    "preinstall": "node ./scripts/mergeDependencies.js",
     "_lint": "eslint -c ../superset-frontend/.eslintrc.js --ignore-path=../superset-frontend/.eslintignore --ext .js,.jsx,.ts,tsx ./plugins/**",
     "_prettier": "prettier --ignore-path=../superset-frontend/.prettierignore './**/({src,spec,cypress-base,plugins,packages,.storybook}/**/*{.js,.jsx,.ts,.tsx,.css,.less,.scss,.sass}|package.json)'",
     "dev": "webpack --mode=development --color --watch",
