@@ -17,15 +17,15 @@
  * under the License.
  */
 
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 import {
   SupersetClient,
   Method,
   makeApi,
   SupersetApiError,
   t,
-} from "@superset-ui/core";
-import ErrorMessage from "./ErrorMessage";
+} from '@superset-ui/core';
+import ErrorMessage from './ErrorMessage';
 
 export type Props = {
   children: ({ payload }: { payload?: object }) => ReactNode;
@@ -78,9 +78,9 @@ export default class VerifyCORS extends React.Component<Props, State> {
     const { endpoint, host, postPayload, method } = this.props;
     SupersetClient.reset();
     SupersetClient.configure({
-      credentials: "include",
+      credentials: 'include',
       host,
-      mode: "cors",
+      mode: 'cors',
     })
       .init()
       .then(() => {
@@ -91,12 +91,12 @@ export default class VerifyCORS extends React.Component<Props, State> {
             method,
           })(postPayload);
         }
-        return { error: "Must provide valid endpoint and payload." };
+        return { error: 'Must provide valid endpoint and payload.' };
       })
-      .then((result) =>
-        this.setState({ didVerify: true, error: undefined, payload: result })
+      .then(result =>
+        this.setState({ didVerify: true, error: undefined, payload: result }),
       )
-      .catch((error) => this.setState({ error }));
+      .catch(error => this.setState({ error }));
   }
 
   render() {
@@ -110,7 +110,7 @@ export default class VerifyCORS extends React.Component<Props, State> {
         <div className="col-md-10">
           This example requires CORS requests from this domain. <br />
           <br />
-          1) enable CORS requests in your Superset App from{" "}
+          1) enable CORS requests in your Superset App from{' '}
           {`${window.location.origin}`}
           <br />
           2) configure your Superset App host name below <br />
@@ -122,7 +122,7 @@ export default class VerifyCORS extends React.Component<Props, State> {
             className="btn btn-primary btn-sm"
             onClick={this.handleVerify}
           >
-            {t("Verify")}
+            {t('Verify')}
           </button>
           <br />
           <br />

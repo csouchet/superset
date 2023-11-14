@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import React from "react";
+import React from 'react';
 
 export type Props = {
   error: Error;
@@ -31,7 +31,7 @@ export default function ErrorMessage({ error }: Props) {
       {error.stack || error.message}
       {!error.message &&
         !error.stack &&
-        (typeof error === "object"
+        (typeof error === 'object'
           ? JSON.stringify(error, null, 2)
           : String(error))}
     </pre>

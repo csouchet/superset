@@ -49,13 +49,13 @@ export const HelloWorldStories = () => {
     Array.from({ length: testData.length }, (_, index) => index),
     0,
   );
-  let processes: string[] = Array.from(
+  const processes: string[] = Array.from(
     new Set(testData.map(item => item.process)),
   );
   // @ts-ignore
   processes.push(undefined);
   const process: string = select('Process Name', processes, 'Pizza Customer');
-  //const activityName: string = text('Activity Name', undefined);
+  // const activityName: string = text('Activity Name', undefined);
   return (
     <SuperChart
       chartType="ext-hello-world"

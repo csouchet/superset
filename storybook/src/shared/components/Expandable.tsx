@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 
 export type Props = {
   children: ReactNode;
@@ -50,7 +50,7 @@ export default class Expandable extends React.Component<Props, State> {
           className="btn btn-primary btn-sm"
           onClick={this.handleToggle}
         >
-          {`${open ? "Hide" : "Show"} ${expandableWhat}`}
+          {`${open ? 'Hide' : 'Show'} ${expandableWhat}`}
         </button>
         <br />
         <br />

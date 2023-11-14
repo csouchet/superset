@@ -4,11 +4,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const parsedArgs = require('yargs').argv;
 
+const STORYBOOK_DIR = path.resolve(__dirname, './');
 
-const STORYBOOK_DIR = path.resolve(__dirname, "./");
-
-const { mode = "development" } = parsedArgs;
-const isDevMode = mode !== "production";
+const { mode = 'development' } = parsedArgs;
+const isDevMode = mode !== 'production';
 
 module.exports = {
   core: {
@@ -31,9 +30,9 @@ module.exports = {
           test: /\.css$/,
           include: [`${STORYBOOK_DIR}/.storybook`, `${STORYBOOK_DIR}/src`],
           use: [
-            isDevMode ? "style-loader" : MiniCssExtractPlugin.loader,
+            isDevMode ? 'style-loader' : MiniCssExtractPlugin.loader,
             {
-              loader: "css-loader",
+              loader: 'css-loader',
               options: {
                 sourceMap: true,
               },

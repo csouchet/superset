@@ -17,15 +17,15 @@
  * under the License.
  */
 
-import React from "react";
-import { text, select } from "@storybook/addon-knobs";
+import React from 'react';
+import { text, select } from '@storybook/addon-knobs';
 import {
   SuperChart,
   ChartDataProvider,
   SupersetClient,
-} from "@superset-ui/core";
-import Expandable from "./Expandable";
-import VerifyCORS, { renderError } from "./VerifyCORS";
+} from '@superset-ui/core';
+import Expandable from './Expandable';
+import VerifyCORS, { renderError } from './VerifyCORS';
 
 export default function createQueryStory({
   choices,
@@ -42,16 +42,16 @@ export default function createQueryStory({
   const keys = Object.keys(choices);
   const story = () => {
     const host = text(
-      "Set Superset App host for CORS request",
-      "localhost:8088"
+      'Set Superset App host for CORS request',
+      'localhost:8088',
     );
-    const mode = select("Choose mode:", keys, keys[0]);
+    const mode = select('Choose mode:', keys, keys[0]);
     const { formData: presetFormData, chartType } = choices[mode];
-    const width = text("Vis width", "400");
-    const height = text("Vis height", "400");
+    const width = text('Vis width', '400');
+    const height = text('Vis height', '400');
     const formData = text(
-      "Override formData",
-      JSON.stringify(presetFormData, null, 2)
+      'Override formData',
+      JSON.stringify(presetFormData, null, 2),
     );
 
     return (

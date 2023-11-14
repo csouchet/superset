@@ -17,16 +17,16 @@
  * under the License.
  */
 
-import React, { PropsWithChildren, ReactNode } from "react";
+import React, { PropsWithChildren, ReactNode } from 'react';
 import {
   ResizableBox,
   ResizableBoxProps,
   ResizeCallbackData,
-} from "react-resizable";
+} from 'react-resizable';
 
-import "react-resizable/css/styles.css";
+import 'react-resizable/css/styles.css';
 
-export type Size = ResizeCallbackData["size"];
+export type Size = ResizeCallbackData['size'];
 
 export default function ResizablePanel({
   children,
@@ -35,7 +35,7 @@ export default function ResizablePanel({
   minConstraints = [100, 100] as [number, number],
   onResize,
   ...props
-}: PropsWithChildren<Omit<ResizableBoxProps, "width" | "height">> & {
+}: PropsWithChildren<Omit<ResizableBoxProps, 'width' | 'height'>> & {
   heading?: ReactNode;
   initialSize?: Size;
 }) {

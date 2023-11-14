@@ -16,13 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useState, ReactNode } from "react";
+import React, { useState, ReactNode } from 'react';
 
-import { StyledComponent } from "@emotion/styled";
+import { StyledComponent } from '@emotion/styled';
 
-import { styled } from "@superset-ui/core";
+import { styled } from '@superset-ui/core';
 // import { DecoratorFunction } from '@storybook/addons';
-import ResizablePanel, { Size } from "./ResizablePanel";
+import ResizablePanel, { Size } from './ResizablePanel';
 
 export const SupersetBody: StyledComponent<any> = styled.div`
   background: ${({ theme }) => theme.colors.grayscale.light4};
