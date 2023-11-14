@@ -1,27 +1,16 @@
 {
-  "extends": "../superset-frontend/tsconfig.json",
+  "extends": "../custom-frontend/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "..",
     "jsx": "react",
-    "esModuleInterop": true,
-    "paths": {
-      "@superset-ui/custom-plugin-chart-hello-world": ["../custom-frontend/plugins/custom-plugin-chart-hello-world/src"]
-    }
   },
   "exclude": [
     "node_modules",
-    "../custom-frontend/**/*",
-    "../custom-frontend",
-    "./custom-frontend/webpack.config.js",
-    "../custom-frontend/webpack.config.js",
-    "custom-frontend/webpack.config.js",
-    "webpack.config.js",
-    "**/webpack.config.js",
-    "../superset-frontend"
+    "../custom-frontend"
   ],
   "include": [
-    "src/**/*",
-    ".storybook/**/*"
+    "./src/**/*",
+    "./.storybook/**/*"
   ]
 }
