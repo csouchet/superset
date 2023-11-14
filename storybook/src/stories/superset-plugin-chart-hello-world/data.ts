@@ -408,7 +408,7 @@ export default [
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </semantic:definitions>`,
-    process: 'Pizza Customer',
+    process: "Pizza Customer",
     __timestamp: 599616000000,
   },
   {
@@ -800,7 +800,7 @@ export default [
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </semantic:definitions>`,
-    process: 'Pizza vendor',
+    process: "Pizza vendor",
     __timestamp: 599616000001,
   },
   {
@@ -1192,7 +1192,7 @@ export default [
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </semantic:definitions>`,
-    process: 'Pizza order',
+    process: "Pizza order",
     __timestamp: 599616000002,
   },
 ];

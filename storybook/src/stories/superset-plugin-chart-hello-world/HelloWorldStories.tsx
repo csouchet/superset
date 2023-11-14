@@ -75,10 +75,10 @@ export const HelloWorldStories = () => {
       ]}
       formData={{
         ...formData,
-        /*diagramURL: diagramURL,
+        /* diagramURL: diagramURL,
       processName: processName,
-      activityName: activityName,*/
-        //theme: theme
+      activityName: activityName, */
+        // theme: theme
       }}
     />
   );

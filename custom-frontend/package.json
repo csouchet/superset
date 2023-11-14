@@ -11,8 +11,9 @@
     "./plugins/*"
   ],
   "scripts": {
-    "_lint": "eslint -c ../superset-frontend/.eslintrc.js --ignore-path=../superset-frontend/.eslintignore --ext .js,.jsx,.ts,tsx .",
-    "_prettier": "prettier './({src,spec,cypress-base,plugins,packages,.storybook}/**/*{.js,.jsx,.ts,.tsx,.css,.less,.scss,.sass}|package.json)'",
+    "preinstall": "node ./scripts/mergeDependencies.js",
+    "_lint": "eslint -c ../superset-frontend/.eslintrc.js --ignore-path=../superset-frontend/.eslintignore --ext .js,.jsx,.ts,tsx ./plugins/**",
+    "_prettier": "prettier --ignore-path=../superset-frontend/.prettierignore './**/({src,spec,cypress-base,plugins,packages,.storybook}/**/*{.js,.jsx,.ts,.tsx,.css,.less,.scss,.sass}|package.json)'",
     "dev": "webpack --mode=development --color --watch",
     "dev-server": "cross-env NODE_ENV=development BABEL_ENV=development node --max_old_space_size=4096 ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --mode=development",
     "format": "npm run _prettier -- --write",
