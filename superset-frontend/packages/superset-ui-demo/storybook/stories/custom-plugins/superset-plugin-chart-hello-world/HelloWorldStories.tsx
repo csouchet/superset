@@ -22,27 +22,15 @@ import React from 'react';
 import { SupersetPluginChartHelloWorld } from '@superset-ui/custom-plugin-chart-hello-world';
 
 import { SuperChart } from '@superset-ui/core';
-import { number, select } from '@storybook/addon-knobs';
+import { select } from '@storybook/addon-knobs';
 
 import testData from './data';
 
 const TIME_COLUMN = '__timestamp';
 
 const formData = {
-  /*colorPicker: {
-    r: 0,
-    g: 122,
-    b: 135,
-    a: 1,
-  },
-  compareLag: 1,
-  compareSuffix: 'over 10Y',
-  metric: 'sum__num',
-  showTrendLine: true,
-  startYAxisAtZero: true,
-  timeGrainSqla: 'P1Y',
-  vizType: 'big_number',
-  yAxisFormat: '.3s',*/
+  processName: 'process',
+  bpmnDiagram: 'diagram',
 };
 
 export default {
@@ -56,7 +44,11 @@ new SupersetPluginChartHelloWorld()
   .register();
 
 export const HelloWorldStories = () => {
-  const dataIndex: number = number('Data Index', 0);
+  const dataIndex: number = select(
+    'Data Index',
+    Array.from({ length: testData.length }, (_, index) => index),
+    0,
+  );
   let processes: string[] = Array.from(
     new Set(testData.map(item => item.process)),
   );

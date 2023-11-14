@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { createRef, useEffect } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 
 import {
   BpmnVisualization,
@@ -46,21 +46,6 @@ const Styles = styled.div<SupersetPluginChartHelloWorldStylesProps>`
 
   height: ${({ height }) => height}px;
   width: ${({ width }) => width}px;
-
-  /*h3 {
-    /* You can use your props to control CSS!
-    margin-top: 0;
-    margin-bottom: ${({ theme }) => theme.gridUnit * 3}px;
-    font-size: ${({ theme, headerFontSize }) =>
-    theme.typography.sizes[headerFontSize]}px;
-    font-weight: ${({ theme, boldText }) =>
-    theme.typography.weights[boldText ? 'bold' : 'normal']};
-  }
-
-  pre {
-    height: ${({ theme, headerFontSize, height }) =>
-    height - theme.gridUnit * 12 - theme.typography.sizes[headerFontSize]}px;
-  }*/
 `;
 
 /**
@@ -76,42 +61,48 @@ export default function SupersetPluginChartHelloWorld(
 ) {
   // height and width are the height and width of the DOM element as it exists in the dashboard.
   // There is also a `data` prop, which is, of course, your DATA 🎉
-  // @ts-ignore
   const { data, height, width, processName, bpmnDiagram } = props;
 
   const rootElem = createRef<HTMLDivElement>();
 
-  // Often, you just want to access the DOM and do whatever you want.
-  // Here, you can do that with createRef, and the useEffect hook.
-  useEffect(() => {
-    //const root = rootElem.current as HTMLElement;
-    //console.log('Plugin element', root);
-    //console.log('data', data);
+  const [bpmnVisualization, initBpmnVisualization] =
+    useState<BpmnVisualization | null>(null);
 
-    const bpmnVisualization = new BpmnVisualization({
+  // first init
+  useEffect(() => {
+    const init = new BpmnVisualization({
       container: 'bpmn-container',
       navigation: { enabled: true },
     });
+    initBpmnVisualization(init);
+  }, []);
 
-    const modelFilter: ModelFilter = {};
-    const process = data[0][processName];
-    const diagram = data[0][bpmnDiagram];
+  // Often, you just want to access the DOM and do whatever you want.
+  // Here, you can do that with createRef, and the useEffect hook.
+  // each props change
+  useEffect(() => {
+    if (bpmnVisualization) {
+      //const root = rootElem.current as HTMLElement;
+      //console.log('Plugin element', root);
+      //console.log('data', data);
+      const modelFilter: ModelFilter = {};
+      const process = data[0][processName];
+      const diagram = data[0][bpmnDiagram];
 
-    if (diagram && (diagram as string).trim() !== '') {
-      if (process && (process as string).trim() !== '') {
-        modelFilter.pools = { name: process } as PoolFilter;
+      if (diagram && (diagram as string).trim() !== '') {
+        if (process && (process as string).trim() !== '') {
+          modelFilter.pools = { name: process } as PoolFilter;
+        }
+        bpmnVisualization.load(diagram as string, {
+          fit: {
+            type: FitType.Center,
+            margin: 0,
+          },
+          modelFilter: modelFilter,
+        });
       }
-      bpmnVisualization.load(diagram as string, {
-        fit: {
-          type: FitType.Center,
-          margin: 0,
-        },
-        modelFilter: modelFilter,
-      });
     }
   });
-
-  console.log('Plugin props', props);
 
   return (
     <Styles
@@ -129,7 +120,7 @@ export default function SupersetPluginChartHelloWorld(
           padding: 'auto', */
           height,
           width,
-          /* This ensures that the parts of the diagram outside of the container are not displayed. */
+          /* This ensures that the parts of the diagram outside the container are not displayed. */
           overflow: 'hidden',
           // eslint-disable-next-line theme-colors/no-literal-colors
           backgroundColor: 'white',
