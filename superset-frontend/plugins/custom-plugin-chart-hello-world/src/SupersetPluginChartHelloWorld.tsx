@@ -21,10 +21,8 @@ import React, { createRef, useEffect } from 'react';
 import {
   BpmnVisualization,
   FitType,
-  FlowKind,
   ModelFilter,
   PoolFilter,
-  ShapeBpmnElementKind,
 } from 'bpmn-visualization';
 
 import { styled } from '@superset-ui/core';
@@ -49,20 +47,20 @@ const Styles = styled.div<SupersetPluginChartHelloWorldStylesProps>`
   height: ${({ height }) => height}px;
   width: ${({ width }) => width}px;
 
-  h3 {
-    /* You can use your props to control CSS! */
+  /*h3 {
+    /* You can use your props to control CSS!
     margin-top: 0;
     margin-bottom: ${({ theme }) => theme.gridUnit * 3}px;
     font-size: ${({ theme, headerFontSize }) =>
-      theme.typography.sizes[headerFontSize]}px;
+    theme.typography.sizes[headerFontSize]}px;
     font-weight: ${({ theme, boldText }) =>
-      theme.typography.weights[boldText ? 'bold' : 'normal']};
+    theme.typography.weights[boldText ? 'bold' : 'normal']};
   }
 
   pre {
     height: ${({ theme, headerFontSize, height }) =>
-      height - theme.gridUnit * 12 - theme.typography.sizes[headerFontSize]}px;
-  }
+    height - theme.gridUnit * 12 - theme.typography.sizes[headerFontSize]}px;
+  }*/
 `;
 
 /**
@@ -79,7 +77,7 @@ export default function SupersetPluginChartHelloWorld(
   // height and width are the height and width of the DOM element as it exists in the dashboard.
   // There is also a `data` prop, which is, of course, your DATA 🎉
   // @ts-ignore
-  const { data, height, width } = props;
+  const { data, height, width, processName, bpmnDiagram } = props;
 
   const rootElem = createRef<HTMLDivElement>();
 
@@ -96,38 +94,21 @@ export default function SupersetPluginChartHelloWorld(
     });
 
     const modelFilter: ModelFilter = {};
+    const process = data[0][processName];
+    const diagram = data[0][bpmnDiagram];
 
-    if (data[0].process && (data[0].process as string).trim() !== '') {
-      modelFilter.pools = { name: data[0].process } as PoolFilter;
+    if (diagram && (diagram as string).trim() !== '') {
+      if (process && (process as string).trim() !== '') {
+        modelFilter.pools = { name: process } as PoolFilter;
+      }
+      bpmnVisualization.load(diagram as string, {
+        fit: {
+          type: FitType.Center,
+          margin: 0,
+        },
+        modelFilter: modelFilter,
+      });
     }
-    bpmnVisualization.load(data[0].diagram as string, {
-      fit: {
-        type: FitType.Center,
-        margin: 0,
-      },
-      modelFilter: modelFilter,
-    });
-
-    const { bpmnElementsRegistry } = bpmnVisualization;
-    const catchEventIds = bpmnElementsRegistry
-      .getElementsByKinds(ShapeBpmnElementKind.EVENT_INTERMEDIATE_CATCH)
-      .map(element => element.bpmnSemantic.id);
-    bpmnElementsRegistry.updateStyle(catchEventIds, {
-      // eslint-disable-next-line theme-colors/no-literal-colors
-      stroke: { color: 'chartreuse' },
-      // eslint-disable-next-line theme-colors/no-literal-colors
-      fill: { color: '#102000' },
-    });
-
-    const messageFlowIds = bpmnElementsRegistry
-      .getElementsByKinds(FlowKind.MESSAGE_FLOW)
-      .map(element => element.bpmnSemantic.id);
-    bpmnElementsRegistry.updateStyle(messageFlowIds, {
-      // eslint-disable-next-line theme-colors/no-literal-colors
-      stroke: { color: '#8000FF' },
-      // eslint-disable-next-line theme-colors/no-literal-colors
-      fill: { color: '#EFDFFF' },
-    });
   });
 
   console.log('Plugin props', props);
@@ -140,15 +121,12 @@ export default function SupersetPluginChartHelloWorld(
       height={height}
       width={width}
     >
-      {/* <pre>${JSON.stringify(data, null, 2)}</pre> */}
-
       <div
         id="bpmn-container"
         style={{
           /* height: `calc(${height} - 0.5rem)`,
           width: `calc(${width} - 0.5rem)`,
           padding: 'auto', */
-
           height,
           width,
           /* This ensures that the parts of the diagram outside of the container are not displayed. */

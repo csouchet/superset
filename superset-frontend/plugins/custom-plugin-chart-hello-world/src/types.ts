@@ -31,6 +31,8 @@ export interface SupersetPluginChartHelloWorldStylesProps {
 
 interface SupersetPluginChartHelloWorldCustomizeProps {
   headerText: string;
+  bpmnDiagram: string;
+  processName: string;
 }
 
 export type SupersetPluginChartHelloWorldQueryFormData = QueryFormData &
