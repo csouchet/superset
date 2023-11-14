@@ -18,7 +18,7 @@
 set -eo pipefail
 
 SHA=$(git rev-parse HEAD)
-REPO_NAME="apache/superset"
+REPO_NAME="csouchet/superset"
 
 if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
   REFSPEC=$(echo "${GITHUB_HEAD_REF}" | sed 's/[^a-zA-Z0-9]/-/g' | head -c 40)
@@ -46,7 +46,8 @@ EOF
 #
 # Build the "lean" image
 #
-DOCKER_BUILDKIT=1 docker build --target lean \
+DOCKER_BUILDKIT=1 docker build \
+  --target lean \
   -t "${REPO_NAME}:${SHA}" \
   -t "${REPO_NAME}:${REFSPEC}" \
   -t "${REPO_NAME}:${LATEST_TAG}" \
@@ -56,56 +57,71 @@ DOCKER_BUILDKIT=1 docker build --target lean \
   --label "build_actor=${GITHUB_ACTOR}" \
   .
 
-#
-# Build the "lean310" image
-#
-DOCKER_BUILDKIT=1 docker build --target lean \
-  -t "${REPO_NAME}:${SHA}-py310" \
-  -t "${REPO_NAME}:${REFSPEC}-py310" \
-  -t "${REPO_NAME}:${LATEST_TAG}-py310" \
-  --build-arg PY_VER="3.10-slim-bookworm"\
-  --label "sha=${SHA}" \
-  --label "built_at=$(date)" \
-  --label "target=lean310" \
-  --label "build_actor=${GITHUB_ACTOR}" \
-  .
 
-#
-# Build the "websocket" image
-#
-DOCKER_BUILDKIT=1 docker build \
-  -t "${REPO_NAME}:${SHA}-websocket" \
-  -t "${REPO_NAME}:${REFSPEC}-websocket" \
-  -t "${REPO_NAME}:${LATEST_TAG}-websocket" \
-  --label "sha=${SHA}" \
-  --label "built_at=$(date)" \
-  --label "target=websocket" \
-  --label "build_actor=${GITHUB_ACTOR}" \
-  superset-websocket
+# NO NEED TO BUILD ALL IMAGES
 
+##
+## Build the "lean310" image
+##
+#DOCKER_BUILDKIT=1 docker build \
+#  --target lean \
+#  -t "${REPO_NAME}:${SHA}-py310" \
+#  -t "${REPO_NAME}:${REFSPEC}-py310" \
+#  -t "${REPO_NAME}:${LATEST_TAG}-py310" \
+#  --build-arg PY_VER="3.10-slim-bookworm"\
+#  --label "sha=${SHA}" \
+#  --label "built_at=$(date)" \
+#  --label "target=lean310" \
+#  --label "build_actor=${GITHUB_ACTOR}" \
+#  .
 #
-# Build the dev image
+##
+## Build the "websocket" image
+##
+#DOCKER_BUILDKIT=1 docker build \
+#  -t "${REPO_NAME}:${SHA}-websocket" \
+#  -t "${REPO_NAME}:${REFSPEC}-websocket" \
+#  -t "${REPO_NAME}:${LATEST_TAG}-websocket" \
+#  --label "sha=${SHA}" \
+#  --label "built_at=$(date)" \
+#  --label "target=websocket" \
+#  --label "build_actor=${GITHUB_ACTOR}" \
+#  superset-websocket
 #
-DOCKER_BUILDKIT=1 docker build --target dev \
-  -t "${REPO_NAME}:${SHA}-dev" \
-  -t "${REPO_NAME}:${REFSPEC}-dev" \
-  -t "${REPO_NAME}:${LATEST_TAG}-dev" \
-  --label "sha=${SHA}" \
-  --label "built_at=$(date)" \
-  --label "target=dev" \
-  --label "build_actor=${GITHUB_ACTOR}" \
-  .
+##
+## Build the dev image
+##
+#DOCKER_BUILDKIT=1 docker build \
+#  --target dev \
+#  -t "${REPO_NAME}:${SHA}-dev" \
+#  -t "${REPO_NAME}:${REFSPEC}-dev" \
+#  -t "${REPO_NAME}:${LATEST_TAG}-dev" \
+#  --label "sha=${SHA}" \
+#  --label "built_at=$(date)" \
+#  --label "target=dev" \
+#  --label "build_actor=${GITHUB_ACTOR}" \
+#  .
+#
+##
+## Build the dockerize image
+##
+#DOCKER_BUILDKIT=1 docker build \
+#  -t "${REPO_NAME}:dockerize" \
+#  --label "sha=${SHA}" \
+#  --label "built_at=$(date)" \
+#  --label "build_actor=${GITHUB_ACTOR}" \
+#  -f dockerize.Dockerfile \
+#  .
 
-#
-# Build the dockerize image
-#
-DOCKER_BUILDKIT=1 docker build \
-  -t "${REPO_NAME}:dockerize" \
-  --label "sha=${SHA}" \
-  --label "built_at=$(date)" \
-  --label "build_actor=${GITHUB_ACTOR}" \
-  -f dockerize.Dockerfile \
-  .
+echo "Create a backup that can then be used with docker load"
+
+mkdir ./build
+
+docker save "${REPO_NAME}:${LATEST_TAG}" > "build/superset-${LATEST_TAG}.tar"
+#docker save "${REPO_NAME}:${LATEST_TAG}-py310" > "build/superset-${LATEST_TAG}-py310.tar"
+#docker save "${REPO_NAME}:${LATEST_TAG}-websocket" > "build/superset-${LATEST_TAG}-websocket.tar"
+#docker save "${REPO_NAME}:${LATEST_TAG}-dev" > "build/superset-${LATEST_TAG}-dev.tar"
+#docker save "${REPO_NAME}:dockerize" > "build/superset-dockerize.tar"
 
 if [ -z "${DOCKERHUB_TOKEN}" ]; then
   # Skip if secrets aren't populated -- they're only visible for actions running in the repo (not on forks)
