@@ -1,5 +1,5 @@
 {
-  "extends": "../../../superset-frontend/tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": true,
     "declarationDir": "lib",
