@@ -1,0 +1,121 @@
+// vite.config.js
+
+const path = require('path');
+//import { readFileSync } from 'fs';
+import react from '@vitejs/plugin-react';
+
+
+// Read package.json to get browserslist
+//const packageConfig = JSON.parse(readFileSync(path.resolve(__dirname, 'package.json'), 'utf-8'));
+
+const CUSTOM_FRONTEND_DIR = path.resolve(__dirname, './');
+const ORIGINAL_FRONTEND_DIR = path.resolve(__dirname, '../superset-frontend/');
+
+// output dir
+const BUILD_DIR = path.resolve(__dirname, '../superset/static/assets');
+const ROOT_DIR = path.resolve(__dirname, '..');
+
+const ASSET_BASE_URL = process.env.ASSET_BASE_URL || '';
+
+const isDevMode = import.meta.env.DEV;
+
+/** @type {import('vite').UserConfig} */
+export default {
+  root: ROOT_DIR, // Specify the root directory of your project
+  base: `${ASSET_BASE_URL}/static/assets/`, // Change to match your ASSET_BASE_URL
+  build: {
+    outDir: BUILD_DIR, // Specify your output directory
+    emptyOutDir: true, // Clean the output directory before each build
+    chunkFileNames: '[name].[hash].js', // Adjust as needed
+    chunkSizeWarningLimit: 2000,
+    cssCodeSplit: true, // Enable CSS code splitting
+    sourcemap: true, // Generate sourcemaps
+    minify: !isDevMode,
+
+    manifest: true,
+    assetsDir: path.join(ORIGINAL_FRONTEND_DIR, '/static/assets'),
+
+    rollupOptions: {
+      input: {
+        preamble: path.join(ORIGINAL_FRONTEND_DIR, '/src/preamble.ts'),
+        theme: path.join(ORIGINAL_FRONTEND_DIR, '/src/theme.ts'),
+        menu: path.join(CUSTOM_FRONTEND_DIR, 'src/views/menu.tsx'),
+        spa: path.join(CUSTOM_FRONTEND_DIR, 'src/views/index.tsx'),
+        embedded: path.join(CUSTOM_FRONTEND_DIR, 'src/embedded/index.tsx'),
+        sqllab: path.join(CUSTOM_FRONTEND_DIR, 'src/SqlLab/index.tsx'),
+        profile: path.join(CUSTOM_FRONTEND_DIR, 'src/profile/index.tsx'),
+        showSavedQuery: path.join(ORIGINAL_FRONTEND_DIR, '/src/showSavedQuery/index.jsx'),
+      },
+      output: {
+        entryFileNames: isDevMode ? '[name].[hash].entry.js' : '[name].[chunkhash].entry.js',
+        chunkFileNames: isDevMode ? '[name].[hash].chunk.js' : '[name].[chunkhash].chunk.js',
+      },
+    },
+  },
+  server: {
+    port: 9000, // Change to your devserverPort
+    proxy: {
+      // Add your proxy configuration if needed
+    },
+    cors: true, // Enable CORS
+    strictPort: true,
+/*    fsServe: {
+      root: path.resolve(__dirname, `${ORIGINAL_FRONTEND_DIR}/static/assets`),
+    },*/
+    hmr: {
+      overlay: false,
+    },
+  },
+  plugins: [
+    //{ enforce: 'pre', ...mdx() },
+    react({
+      include: /\.(mdx|js|jsx|ts|tsx)$/,
+      jsxImportSource: '@emotion/react',
+      babel: {
+        // Use babel.config.js files
+        configFile: true,
+      }
+    }),
+  ],
+  resolve: {
+   // extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      '@emotion/babel-preset-css-prop': require.resolve('@emotion/babel-preset-css-prop'),
+      '@emotion/react': '@emotion/react',
+
+      '@superset-ui/(.*)$': `${CUSTOM_FRONTEND_DIR}/node_modules/@superset-ui/$1/src`, // Adjust based on your project structure
+
+
+      // Add your aliases here
+      // Example: 'react': 'preact/compat',
+      // Example: 'react-dom': 'preact/compat',
+      // Example: '@emotion/react': '@emotion/styled',
+      // Example: '@emotion/styled': '@emotion/styled',
+
+      // TODO: remove aliases once React has been upgraded to v. 17 and
+      //  AntD version conflict has been resolved
+      antd: path.resolve(path.join(CUSTOM_FRONTEND_DIR, './node_modules/antd')),
+    //  react: path.resolve(path.join(CUSTOM_FRONTEND_DIR, './node_modules/react')),
+      // TODO: remove Handlebars alias once Handlebars NPM package has been updated to
+      // correctly support webpack import (https://github.com/handlebars-lang/handlebars.js/issues/953)
+      handlebars: 'handlebars/dist/handlebars.js',
+      '../visualizations/presets/MainPreset': path.resolve(path.join(CUSTOM_FRONTEND_DIR, './src/visualizations/presets/MainPreset.js')),
+      '../FilterBox': path.resolve(path.join(ORIGINAL_FRONTEND_DIR, './src/visualizations/FilterBox')),
+      '../TimeTable': path.resolve(path.join(ORIGINAL_FRONTEND_DIR, './src/visualizations/TimeTable')),
+    },
+  },
+  css: {
+    modules: true, // Enable CSS modules if needed
+  },
+  define :{
+    'process.env.REDUX_DEFAULT_MIDDLEWARE': process.env.REDUX_DEFAULT_MIDDLEWARE || '',
+  },
+    optimizeDeps: {
+        include: [
+            'react',
+            'react-dom',
+            // Add other dependencies as needed
+        ],
+    },
+
+};
