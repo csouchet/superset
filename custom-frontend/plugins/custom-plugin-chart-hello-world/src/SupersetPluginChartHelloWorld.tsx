@@ -42,10 +42,6 @@ import {
 // https://github.com/apache-superset/superset-ui/blob/master/packages/superset-ui-core/src/style/index.ts
 
 const Styles: any = styled.div<SupersetPluginChartHelloWorldStylesProps>`
-  /*background-color: ${({ theme }) => theme.colors.secondary.light2};
-  padding: ${({ theme }) => theme.gridUnit * 4}px;
-  border-radius: ${({ theme }) => theme.gridUnit * 2}px;*/
-
   height: ${({ height }) => height}px;
   width: ${({ width }) => width}px;
 `;
@@ -58,7 +54,7 @@ const Styles: any = styled.div<SupersetPluginChartHelloWorldStylesProps>`
  *  * FormData (your controls!) provided as props by transformProps.ts
  */
 
-export default function SupersetPluginChartHelloWorld(
+export default function SupersetPluginChartHelloWorld (
   props: SupersetPluginChartHelloWorldProps,
 ) {
   // height and width are the height and width of the DOM element as it exists in the dashboard.
@@ -138,9 +134,6 @@ export default function SupersetPluginChartHelloWorld(
       <div
         id="bpmn-container"
         style={{
-          /* height: `calc(${height} - 0.5rem)`,
-          width: `calc(${width} - 0.5rem)`,
-          padding: 'auto', */
           height,
           width,
           /* This ensures that the parts of the diagram outside the container are not displayed. */

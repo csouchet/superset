@@ -40,16 +40,7 @@ export default function buildQuery(formData: QueryFormData) {
   ];
   customFormData.row_limit = 1;
 
-  // eslint-disable-next-line no-console
-  console.log(customFormData);
-
   return buildQueryContext(customFormData, baseQueryObject => {
-    // eslint-disable-next-line no-console
-    console.log(baseQueryObject);
-    return [
-      {
-        ...baseQueryObject,
-      },
-    ];
+    return [ baseQueryObject ];
   });
 }
