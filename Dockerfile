@@ -43,11 +43,25 @@ COPY ./docker/frontend-mem-nag.sh /
 
 RUN /frontend-mem-nag.sh
 
-COPY superset-frontend/package*.json ./
+#COPY superset-frontend/package*.json ./
+#RUN npm ci
 
-RUN npm ci
 
 COPY ./superset-frontend ./
+
+COPY ./custom-frontend/plugins ./plugins
+RUN rm -f ./plugins/custom-plugin-chart-hello-world/package.json
+RUN mv ./plugins/custom-plugin-chart-hello-world/package.docker.json ./plugins/custom-plugin-chart-hello-world/package.json
+
+RUN rm -f ./plugins/custom-plugin-chart-hello-world/tsconfig.json
+RUN mv ./plugins/custom-plugin-chart-hello-world/tsconfig.docker.json ./plugins/custom-plugin-chart-hello-world/tsconfig.json
+
+COPY ./custom-frontend/src ./src
+COPY ./custom-frontend/tsconfig.docker.json ./tsconfig.json
+
+RUN rm -f ./package.json
+COPY ./custom-frontend/package.docker.json ./package.json
+RUN npm i
 
 # This seems to be the most expensive step
 RUN npm run ${BUILD_CMD}

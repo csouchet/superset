@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - 'master'
+    paths:
+      - "superset-embedded-sdk/**"
 
 jobs:
   config:

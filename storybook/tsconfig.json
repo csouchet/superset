@@ -1,0 +1,16 @@
+{
+  "extends": "../custom-frontend/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "..",
+    "jsx": "react",
+  },
+  "exclude": [
+    "node_modules",
+    "../custom-frontend"
+  ],
+  "include": [
+    "./src/**/*",
+    "./.storybook/**/*"
+  ]
+}
